@@ -1,218 +1,144 @@
 # Public Skills
 
-Reusable agent skills, published in separate folders for the agents that read
-them differently. Pick one agent below and install only that folder.
+Reusable agent skills. This repo currently has one skill:
 
-This repo currently includes one skill:
+- `mcmaster-web-performance`: build clean, fast websites with an app shell,
+  inline critical CSS, versioned assets, and prefetch-on-hover navigation.
 
-- `mcmaster-web-performance`: build clean websites that load and navigate like
-  McMaster-Carr, using an app shell, inline critical CSS, versioned assets, and
-  prefetch-on-hover navigation.
+Pick the folder for your agent and install that one folder. Each folder contains
+its own `SKILL.md` plus the files the skill needs.
 
-## Pick Your Agent
-
-| Agent | Install this folder |
+| Agent | Use this folder |
 | --- | --- |
-| Codex | [`codex/mcmaster-web-performance`](./codex/mcmaster-web-performance/) |
-| Claude Code | [`claude/mcmaster-web-performance`](./claude/mcmaster-web-performance/) |
-| Claude.ai custom skills | [`claude/mcmaster-web-performance`](./claude/mcmaster-web-performance/) as a ZIP |
-| Other agents | [`other/mcmaster-web-performance`](./other/mcmaster-web-performance/) |
+| Codex | `codex/mcmaster-web-performance` |
+| Claude Code | `claude/mcmaster-web-performance` |
+| Claude.ai custom skills | `claude/mcmaster-web-performance` |
+| Other agents | `other/mcmaster-web-performance` |
 
-The `codex`, `claude`, and `other` folders are alternatives. Do not install all
-three unless you actually use all three kinds of agents.
-
-The desktop commands use Git sparse checkout, so they fetch the matching agent
-folder instead of checking out every copy in the repo.
+Do not copy all three versions unless you use all three agents.
 
 ## Codex
 
-Use this when you want Codex to find the skill automatically.
+Codex reads user skills from `$HOME/.agents/skills`. For a project-only skill,
+copy the folder into that project's `.agents/skills` directory instead.
 
 ### Windows PowerShell
 
 ```powershell
-$repo = Join-Path $env:TEMP "skills-mcmaster"
-Remove-Item -Recurse -Force $repo -ErrorAction SilentlyContinue
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git $repo
-Set-Location $repo
-git sparse-checkout set codex/mcmaster-web-performance
-
-$dest = Join-Path $env:USERPROFILE ".agents\skills\mcmaster-web-performance"
-Remove-Item -Recurse -Force $dest -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force (Split-Path $dest) | Out-Null
-Copy-Item -Recurse .\codex\mcmaster-web-performance $dest
+git clone https://github.com/joffewilliam/skills.git
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.agents\skills"
+Copy-Item -Recurse .\skills\codex\mcmaster-web-performance "$env:USERPROFILE\.agents\skills\"
 ```
 
-For a project-only install, copy it to that project's `.agents\skills` folder
-instead:
+Project-only install:
 
 ```powershell
-$project = "C:\path\to\your\project"
-$dest = Join-Path $project ".agents\skills\mcmaster-web-performance"
-Remove-Item -Recurse -Force $dest -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force (Split-Path $dest) | Out-Null
-Copy-Item -Recurse .\codex\mcmaster-web-performance $dest
+New-Item -ItemType Directory -Force .\.agents\skills
+Copy-Item -Recurse .\skills\codex\mcmaster-web-performance .\.agents\skills\
 ```
 
 ### macOS and Linux
 
 ```bash
-repo="$(mktemp -d)"
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git "$repo"
-cd "$repo"
-git sparse-checkout set codex/mcmaster-web-performance
-
-dest="$HOME/.agents/skills/mcmaster-web-performance"
-rm -rf "$dest"
-mkdir -p "$(dirname "$dest")"
-cp -R codex/mcmaster-web-performance "$dest"
+git clone https://github.com/joffewilliam/skills.git
+mkdir -p ~/.agents/skills
+cp -R skills/codex/mcmaster-web-performance ~/.agents/skills/
 ```
 
-For a project-only install, copy it to that project's `.agents/skills` folder
-instead:
+Project-only install:
 
 ```bash
-project="/path/to/your/project"
-dest="$project/.agents/skills/mcmaster-web-performance"
-rm -rf "$dest"
-mkdir -p "$(dirname "$dest")"
-cp -R codex/mcmaster-web-performance "$dest"
+mkdir -p .agents/skills
+cp -R skills/codex/mcmaster-web-performance .agents/skills/
 ```
 
 ### iOS and iPadOS
 
-Codex local skills need a filesystem location such as `$HOME/.agents/skills` or a
-project `.agents/skills` folder. iOS and iPadOS do not expose those paths for a
-normal local-agent install, so install the Codex skill from Windows, macOS, or
-Linux.
+Codex local skills need access to `.agents/skills`, so install this from a
+desktop environment.
 
 ## Claude Code
 
-Use this when you want Claude Code to find the skill automatically.
+Claude Code reads user skills from `$HOME/.claude/skills`.
 
 ### Windows PowerShell
 
 ```powershell
-$repo = Join-Path $env:TEMP "skills-mcmaster"
-Remove-Item -Recurse -Force $repo -ErrorAction SilentlyContinue
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git $repo
-Set-Location $repo
-git sparse-checkout set claude/mcmaster-web-performance
-
-$dest = Join-Path $env:USERPROFILE ".claude\skills\mcmaster-web-performance"
-Remove-Item -Recurse -Force $dest -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force (Split-Path $dest) | Out-Null
-Copy-Item -Recurse .\claude\mcmaster-web-performance $dest
+git clone https://github.com/joffewilliam/skills.git
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills"
+Copy-Item -Recurse .\skills\claude\mcmaster-web-performance "$env:USERPROFILE\.claude\skills\"
 ```
 
 ### macOS and Linux
 
 ```bash
-repo="$(mktemp -d)"
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git "$repo"
-cd "$repo"
-git sparse-checkout set claude/mcmaster-web-performance
-
-dest="$HOME/.claude/skills/mcmaster-web-performance"
-rm -rf "$dest"
-mkdir -p "$(dirname "$dest")"
-cp -R claude/mcmaster-web-performance "$dest"
+git clone https://github.com/joffewilliam/skills.git
+mkdir -p ~/.claude/skills
+cp -R skills/claude/mcmaster-web-performance ~/.claude/skills/
 ```
 
 ### iOS and iPadOS
 
-Claude Code local skills need `~/.claude/skills`, so install them from Windows,
-macOS, or Linux.
+Claude Code local skills need access to `.claude/skills`, so install this from
+a desktop environment.
 
 ## Claude.ai Custom Skill
 
-Use the Claude folder, but upload it as a ZIP instead of copying it to a local
-skills directory.
+Use the Claude version and upload it as a custom skill ZIP.
 
 ### Windows PowerShell
 
 ```powershell
-$repo = Join-Path $env:TEMP "skills-mcmaster"
-Remove-Item -Recurse -Force $repo -ErrorAction SilentlyContinue
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git $repo
-Set-Location $repo
-git sparse-checkout set claude/mcmaster-web-performance
-
-$zip = Join-Path $env:USERPROFILE "Downloads\mcmaster-web-performance-claude.zip"
-Remove-Item -Force $zip -ErrorAction SilentlyContinue
-Compress-Archive -Path .\claude\mcmaster-web-performance\* -DestinationPath $zip
+git clone https://github.com/joffewilliam/skills.git
+Compress-Archive -Path .\skills\claude\mcmaster-web-performance\* -DestinationPath .\mcmaster-web-performance-claude.zip
 ```
 
-Upload `mcmaster-web-performance-claude.zip` as the custom skill.
+Upload `mcmaster-web-performance-claude.zip` to Claude.ai.
 
 ### macOS and Linux
 
 ```bash
-repo="$(mktemp -d)"
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git "$repo"
-cd "$repo"
-git sparse-checkout set claude/mcmaster-web-performance
-
-zip="$HOME/Downloads/mcmaster-web-performance-claude.zip"
-rm -f "$zip"
-(cd claude/mcmaster-web-performance && zip -r "$zip" .)
+git clone https://github.com/joffewilliam/skills.git
+(cd skills/claude/mcmaster-web-performance && zip -r ../../../mcmaster-web-performance-claude.zip .)
 ```
 
-Upload `mcmaster-web-performance-claude.zip` as the custom skill.
+Upload `mcmaster-web-performance-claude.zip` to Claude.ai.
 
 ### iOS and iPadOS
 
-If you are using Claude.ai in a browser, use the Claude skill folder, not the
-Codex or `other` folders. Download the repository ZIP from GitHub, open it in
-Files, compress `claude/mcmaster-web-performance`, and upload that ZIP as the
-custom skill.
+Download the repo ZIP from GitHub. In Files, compress
+`claude/mcmaster-web-performance`, then upload that ZIP to Claude.ai.
 
 ## Other Agents
 
-Use this when your agent expects a folder containing `SKILL.md` and bundled
-resources, but does not need Codex or Claude-specific metadata.
+Use `other/mcmaster-web-performance` when your agent wants a plain skill folder
+with a `SKILL.md` file and bundled resources.
 
 ### Windows PowerShell
 
 ```powershell
-$repo = Join-Path $env:TEMP "skills-mcmaster"
-Remove-Item -Recurse -Force $repo -ErrorAction SilentlyContinue
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git $repo
-Set-Location $repo
-git sparse-checkout set other/mcmaster-web-performance
-
-$dest = "$env:USERPROFILE\agent-skills\mcmaster-web-performance"
-Remove-Item -Recurse -Force $dest -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force (Split-Path $dest) | Out-Null
-Copy-Item -Recurse .\other\mcmaster-web-performance $dest
+git clone https://github.com/joffewilliam/skills.git
+New-Item -ItemType Directory -Force "$env:USERPROFILE\agent-skills"
+Copy-Item -Recurse .\skills\other\mcmaster-web-performance "$env:USERPROFILE\agent-skills\"
 ```
 
-Point your agent at `$env:USERPROFILE\agent-skills\mcmaster-web-performance`,
-or move that folder into the skills directory your agent expects.
+Point your agent at `$env:USERPROFILE\agent-skills\mcmaster-web-performance`.
 
 ### macOS and Linux
 
 ```bash
-repo="$(mktemp -d)"
-git clone --filter=blob:none --sparse https://github.com/joffewilliam/skills.git "$repo"
-cd "$repo"
-git sparse-checkout set other/mcmaster-web-performance
-
-dest="$HOME/agent-skills/mcmaster-web-performance"
-rm -rf "$dest"
-mkdir -p "$(dirname "$dest")"
-cp -R other/mcmaster-web-performance "$dest"
+git clone https://github.com/joffewilliam/skills.git
+mkdir -p ~/agent-skills
+cp -R skills/other/mcmaster-web-performance ~/agent-skills/
 ```
 
-Point your agent at `$HOME/agent-skills/mcmaster-web-performance`, or move that
-folder into the skills directory your agent expects.
+Point your agent at `~/agent-skills/mcmaster-web-performance`.
 
 ### iOS and iPadOS
 
-Use the `other/mcmaster-web-performance` folder only if your iOS agent supports
-uploading or selecting a custom skill folder. If it only accepts text prompts,
-open `other/mcmaster-web-performance/SKILL.md` and paste the skill instructions
-into that agent.
+If your iOS agent supports custom skill folders, give it
+`other/mcmaster-web-performance`. If it only accepts text, paste the contents of
+`other/mcmaster-web-performance/SKILL.md`.
 
 ## Demo
 
