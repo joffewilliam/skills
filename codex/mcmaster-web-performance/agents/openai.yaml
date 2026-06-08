@@ -1,0 +1,7 @@
+interface:
+  display_name: "McMaster Web Performance"
+  short_description: "Fast app shells with hover prefetch"
+  default_prompt: "Use $mcmaster-web-performance to build a fast, McMaster-Carr-style website."
+
+policy:
+  allow_implicit_invocation: true

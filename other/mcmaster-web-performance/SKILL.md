@@ -1,6 +1,6 @@
 ---
 name: mcmaster-web-performance
-description: Build a website that looks clean and loads/navigates as instantly as McMaster-Carr (mcmaster.com). Use when starting a new site/web app, or when asked to make a site feel instant, improve perceived/web performance, add prefetch-on-hover, inline critical CSS, eliminate render-blocking resources, build an app shell, add a left sidebar layout, apply a base visual style/design tokens, or "make it as fast as McMaster". Ships a runnable, themeable reference (reference/ + theme.css) carrying both the base look (masthead + left sidebar + cards) and the performance techniques, plus a verifier (audit.mjs) grading any URL against hardcoded McMaster targets.
+description: Harness-neutral skill for building fast sites with an app shell, inline critical CSS, immutable assets, and hover-prefetch navigation.
 ---
 
 # Build for McMaster-Carr-grade performance
@@ -12,7 +12,7 @@ zero render-blocking resources, immutable version-prefixed asset URLs, and
 **build kit** that reproduces those techniques — **and** a clean, themeable base
 look — so a new site starts fast and finished.
 
-Two pieces, both in `.Codex/skills/mcmaster-web-performance/`:
+Two pieces, both in this skill directory:
 
 - **`reference/`** — a runnable, framework-free starter (plain Node + HTML/CSS/JS).
   It carries both the **base visual style** (`reference/theme.css`: a token-driven
@@ -24,15 +24,14 @@ Two pieces, both in `.Codex/skills/mcmaster-web-performance/`:
   **hardcoded** McMaster targets (no call to mcmaster.com). Run it against the
   reference build (all PASS) and against the site you're building.
 
-Paths below are relative to the skill directory:
-`.Codex/skills/mcmaster-web-performance/`.
+Paths below are relative to the directory that contains this `SKILL.md`.
 
 ## Prerequisites
 
 The reference site needs only Node 18+. The verifier additionally needs Playwright:
 
 ```bash
-cd .Codex/skills/mcmaster-web-performance
+cd path/to/mcmaster-web-performance
 npm i playwright@latest
 npx playwright install chromium
 ```
@@ -43,11 +42,11 @@ Start the reference site (it has no dependencies), then grade it:
 
 ```bash
 # terminal 1 — the reference implementation:
-cd .Codex/skills/mcmaster-web-performance/reference
+cd path/to/mcmaster-web-performance/reference
 node server.mjs            # -> http://localhost:8000
 
 # terminal 2 — verify it against the hardcoded McMaster targets:
-cd .Codex/skills/mcmaster-web-performance
+cd path/to/mcmaster-web-performance
 node audit.mjs            # defaults to http://localhost:8000
 ```
 
