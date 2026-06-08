@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Repository icon">
-  <rect width="256" height="256" rx="56" fill="#063B4C"/>
-  <path d="M72 50h82l34 34v122H72z" fill="#F8FBFC"/>
-  <path d="M154 50v34h34" fill="#D7EEF5"/>
-  <path d="M54 76v130h106" fill="none" stroke="#7CCAD7" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M96 118h68M96 148h68M96 178h44" fill="none" stroke="#0B7A9B" stroke-width="12" stroke-linecap="round"/>
-  <path d="M188 84v122H72V50h82z" fill="none" stroke="#0A2530" stroke-width="10" stroke-linejoin="round"/>
-</svg>
