@@ -12,7 +12,6 @@ its own `SKILL.md` plus the files the skill needs.
 | --- | --- |
 | Codex | `codex/mcmaster-web-performance` |
 | Claude Code | `claude/mcmaster-web-performance` |
-| Claude.ai custom skills | `claude/mcmaster-web-performance` |
 | Other agents | `other/mcmaster-web-performance` |
 
 Do not copy all three versions unless you use all three agents.
