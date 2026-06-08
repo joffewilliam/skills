@@ -6,21 +6,21 @@ description: Harness-neutral skill for building fast sites with an app shell, in
 # Build for McMaster-Carr-grade performance
 
 McMaster-Carr is one of the fastest large sites on the web. Its speed is **not** a
-framework — it's a set of techniques: an app shell with inlined critical CSS and
+framework - it's a set of techniques: an app shell with inlined critical CSS and
 zero render-blocking resources, immutable version-prefixed asset URLs, and
 **prefetch-on-hover** that loads the next page before you click. This skill is a
-**build kit** that reproduces those techniques — **and** a clean, themeable base
-look — so a new site starts fast and finished.
+**build kit** that reproduces those techniques - **and** a clean, themeable base
+look - so a new site starts fast and finished.
 
 Two pieces, both in this skill directory:
 
-- **`reference/`** — a runnable, framework-free starter (plain Node + HTML/CSS/JS).
+- **`reference/`** - a runnable, framework-free starter (plain Node + HTML/CSS/JS).
   It carries both the **base visual style** (`reference/theme.css`: a token-driven
-  design system — masthead, left-flush sidebar, hero, tiles, cards, footer) and
+  design system - masthead, left-flush sidebar, hero, tiles, cards, footer) and
   every performance technique. Read it, run it, **start new sites from it**: rebrand
   by overriding the `:root` tokens in `theme.css`, then fill in your content. See
   **Base visual style** below.
-- **`audit.mjs`** — a Playwright verifier that loads any URL and grades it against
+- **`audit.mjs`** - a Playwright verifier that loads any URL and grades it against
   **hardcoded** McMaster targets (no call to mcmaster.com). Run it against the
   reference build (all PASS) and against the site you're building.
 
@@ -41,16 +41,16 @@ npx playwright install chromium
 Start the reference site (it has no dependencies), then grade it:
 
 ```bash
-# terminal 1 — the reference implementation:
+# terminal 1 - the reference implementation:
 cd path/to/mcmaster-web-performance/reference
 node server.mjs            # -> http://localhost:8000
 
-# terminal 2 — verify it against the hardcoded McMaster targets:
+# terminal 2 - verify it against the hardcoded McMaster targets:
 cd path/to/mcmaster-web-performance
 node audit.mjs            # defaults to http://localhost:8000
 ```
 
-The reference build scores **all PASS** (verified output — local numbers are
+The reference build scores **all PASS** (verified output - local numbers are
 near-zero because there's no network/CDN in front of it):
 
 ```
@@ -98,14 +98,14 @@ Each maps to a measured McMaster behavior and a spot in `reference/`.
 3. **Prefetch on hover-intent, then memoize.** Hovering/touching/focusing an
    internal link fetches its destination and caches it; the click swaps `<main>`
    from cache with `history.pushState` and **no full reload**. Each target is
-   fetched at most once. This is the biggest "feels instant" win — the reference
+   fetched at most once. This is the biggest "feels instant" win - the reference
    build swaps prefetched content in **~1 ms**. → `reference/public/assets/v1/app.js`.
 
 4. **Immutable, version-prefixed asset URLs.** Static assets and prefetch
    fragments return `cache-control: public, max-age=31536000, immutable`;
    cache-bust by changing a version segment in the path (`/assets/v1/...`,
    McMaster uses `/mv1780687622/...`). The HTML *document* stays `no-cache` so a
-   new release ships instantly — freshness lives in the asset URLs, not the doc.
+   new release ships instantly - freshness lives in the asset URLs, not the doc.
    → `reference/server.mjs` response headers (the `VER` constant).
 
 5. **Resource hints.** `dns-prefetch` for asset/font origins; `preload` for the
@@ -123,7 +123,7 @@ Each maps to a measured McMaster behavior and a spot in `reference/`.
 - **Service worker** for repeat visits, self-healing (404 → clear caches +
   unregister + reload).
 - **RUM via image beacons** (`GET /204.asp?navigationStart=...&domInteractive=...`)
-  — measure field performance, not just lab.
+ - measure field performance, not just lab.
 
 The lesson is the *techniques*, not the stack (McMaster is server-rendered
 ASP.NET). They port directly: in **Next.js** use the App Router with
@@ -133,12 +133,12 @@ and serve hashed assets as immutable.
 
 ## Base visual style (the reusable look)
 
-So every new site starts clean and structured — not plain — without re-deriving it.
+So every new site starts clean and structured - not plain - without re-deriving it.
 The look lives in **`reference/theme.css`**, a token-driven design system that is
 inlined as critical CSS by `reference/server.mjs`. It is content-agnostic: it suits
 a store, dashboard, docs site, or landing page.
 
-**Rebrand by overriding the `:root` tokens** at the top of `theme.css` — nothing
+**Rebrand by overriding the `:root` tokens** at the top of `theme.css` - nothing
 else needs to change:
 
 ```css
@@ -146,7 +146,7 @@ else needs to change:
        --font:-apple-system,Segoe UI,Roboto,sans-serif; --r:8px; --head:56px; }
 ```
 
-**The shell skeleton** (in `server.mjs` `shell()`) — masthead + **left-flush**
+**The shell skeleton** (in `server.mjs` `shell()`) - masthead + **left-flush**
 sidebar + content + footer, with `#app` as the client-nav swap target:
 
 ```html
@@ -166,14 +166,14 @@ sidebar + content + footer, with `#app` as the client-nav swap target:
 `.grid/.card/.thumb/.price/.rate/.badge`, `.btn`/`.btn.ghost`, `footer.site`, `#flash`
 (toast). Cards/tiles get hover-lift from the deferred `main.css`.
 
-**Optional modules** (kept out of the base — add only when the site needs them; see
+**Optional modules** (kept out of the base - add only when the site needs them; see
 the `aquatic-haven` example for working versions): a **cart** (localStorage + count
 badge, rendered client-side and served `no-cache` like McMaster's personalized
 parts), **search** (a `/api/suggest` autocomplete + a `/search` results page), and a
 product **spec table**.
 
 **Cache-bust discipline (don't skip):** assets are served `immutable`, so a browser
-pins them forever. **Bump `VER`** (`/assets/v1` → `/assets/v2`, the `VER` constant —
+pins them forever. **Bump `VER`** (`/assets/v1` to `/assets/v2`, the `VER` constant,
 and any hardcoded asset paths) on *every* asset change, or your edits won't show up
 and a stale `app.js` can make features look broken. Freshness lives in the URL.
 
@@ -181,21 +181,21 @@ and a stale `app.js` can make features look broken. Freshness lives in the URL.
 
 - **Measure render-blocking on the INITIAL HTML, not the loaded DOM.**
   `page.content()` returns the post-load DOM where deferred stylesheets have been
-  promoted to real `<link rel=stylesheet>` — making a perfectly-optimized page
+  promoted to real `<link rel=stylesheet>` - making a perfectly-optimized page
   look like it has render-blocking CSS. `audit.mjs` reads `await resp.text()` (the
   first response body) for this. Any static-HTML audit must do the same.
 - **A reference fragment/prefetch endpoint must be same-origin** for the hover
   probe to count it. The verifier counts `xhr`/`fetch`/`document` requests fired
   after dispatching hover on same-origin links.
-- **Don't name a JS variable `URL`** — it shadows the global `URL` constructor and
+- **Don't name a JS variable `URL`** - it shadows the global `URL` constructor and
   `new URL(...)` throws `URL is not a constructor`.
 - **`cache-control: no-cache` on the HTML document is correct**, not a bug: the
   shell revalidates so releases ship instantly; the *versioned assets* it points
   to are `immutable`.
-- **The reference server does not gzip/brotli** (so `compression: 0/N` locally) —
+- **The reference server does not gzip/brotli** (so `compression: 0/N` locally);
   that's the CDN/host's job in production. Don't "fix" it in the demo.
 - **The inline-critical-CSS check passes above ~800 chars.** A real critical-CSS
-  block is ≥1 KB; the demo's is 1590 chars. Tune the threshold in `audit.mjs` if
+  block is at least 1 KB; the demo's is 1590 chars. Tune the threshold in `audit.mjs` if
   your critical CSS is legitimately tiny.
 
 ## Troubleshooting

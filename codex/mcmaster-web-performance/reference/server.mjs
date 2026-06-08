@@ -7,7 +7,7 @@
 //   2. Deferred + preloaded non-critical CSS/JS
 //   3. Prefetch-on-hover -> instant client nav (#app swap) + active-sidebar sync
 //   4. Immutable, version-prefixed asset URLs (bump VER to cache-bust)
-//   5. Left-flush sidebar shell, masthead, tiles, cards, footer — the base look
+//   5. Left-flush sidebar shell, masthead, tiles, cards, footer - the base look
 //   node server.mjs            # http://localhost:8000
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -45,7 +45,7 @@ const tile = (slug) => {
 const homeMain = () => `<section class="hero">
     <span class="eyebrow">Base reference · themeable</span>
     <h1>A fast site, styled and structured</h1>
-    <p>App shell, inlined critical CSS, prefetch-on-hover nav, and immutable assets — wrapped in a clean, left-sidebar layout you re-theme with CSS tokens.</p>
+    <p>App shell, inlined critical CSS, prefetch-on-hover nav, and immutable assets - wrapped in a clean, left-sidebar layout you re-theme with CSS tokens.</p>
     <a class="btn" data-nav href="/category/tools">Browse tools</a></section>
   <h2 class="sec">Shop by section</h2>
   <div class="tiles">${slugs.map(tile).join('')}</div>`;
@@ -53,7 +53,7 @@ const categoryMain = (slug) => {
   const s = SECTIONS[slug];
   if (!s) return `<h1>Not found</h1><p><a data-nav href="/">Back home</a></p>`;
   return `<nav class="crumb"><a data-nav href="/">Home</a><span>›</span>${s.name}</nav>
-    <div class="pagehead"><h1>${s.name}</h1><p class="lede">Placeholder ${s.name.toLowerCase()} listing — drop in your own content; the layout and styling carry over.</p></div>
+    <div class="pagehead"><h1>${s.name}</h1><p class="lede">Placeholder ${s.name.toLowerCase()} listing - drop in your own content; the layout and styling carry over.</p></div>
     <div class="toolbar"><span><b>${s.items.length}</b> items</span><span class="muted">Sorted by popularity</span></div>
     <div class="grid">${s.items.map(card).join('')}</div>`;
 };
@@ -79,7 +79,7 @@ const shell = (main, title, active) => `<!DOCTYPE html>
 <link rel="preload" href="/assets/${VER}/main.css" as="style">
 <style>${THEME}</style>
 </head><body>
-<div class="promo">⚡ <b>Free shipping over $49</b> · ships same day · base reference template</div>
+<div class="promo"><b>Free shipping over $49</b> · ships same day · base reference template</div>
 <header class="masthead"><a class="brand" data-nav href="/">Acme <span>· base reference</span></a>
 <form class="search" role="search" onsubmit="return false"><input placeholder="Search…" aria-label="Search"></form>
 <span class="acct"><a>Account</a><a>Cart</a></span></header>

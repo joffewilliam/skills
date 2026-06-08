@@ -1,12 +1,12 @@
 /* ============================================================================
-   BASE VISUAL STYLE — a generic, themeable design system for fast sites.
+   BASE VISUAL STYLE - a generic, themeable design system for fast sites.
    Token-driven: rebrand a whole site by overriding the :root tokens below.
    The server inlines this file into <style> (critical CSS, zero render-blocking).
    Component classes (.masthead/.shell/.sidebar/.card/.tile/.btn/...) are generic
-   and apply to catalogs, dashboards, docs, stores — any site with a sidebar+grid.
+   and apply to catalogs, dashboards, docs, stores - any site with a sidebar+grid.
    ========================================================================== */
 
-/* ---- THEME TOKENS — override these to rebrand (color, type, shape) -------- */
+/* ---- THEME TOKENS - override these to rebrand (color, type, shape) -------- */
 :root{
   --bg:#ffffff; --surface:#f5f8fa; --tile:#f8fafc; --ink:#15242c; --muted:#5b6b75; --line:#e2e8ec;
   --brand:#0b7a9b; --brand-2:#063b4c; --brand-ink:#ffffff;   /* masthead / nav */

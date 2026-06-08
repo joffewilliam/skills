@@ -1,4 +1,4 @@
-// Prefetch-on-hover client navigation — the core "feels instant" trick.
+// Prefetch-on-hover client navigation - the core "feels instant" trick.
 // Hover/touch/focus an internal link -> fetch its fragment and memoize it.
 // Click -> swap #app from cache, pushState, sync the active sidebar item. No reload.
 (function () {

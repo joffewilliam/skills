@@ -3,7 +3,7 @@
 // Loads any URL in a real headless Chromium, measures the signals that make
 // mcmaster.com feel instant, detects each technique, tests hover-prefetch, and
 // grades the page against HARDCODED McMaster reference targets (see MCM below).
-// No network call to mcmaster.com — the targets are baked in.
+// No network call to mcmaster.com - the targets are baked in.
 //
 //   node audit.mjs                         # audit the local reference build (default)
 //   node audit.mjs https://your-site.com   # audit the site you are building
@@ -41,7 +41,7 @@ page.on('response', async r => {
 const t0 = Date.now();
 const resp = await page.goto(target, { waitUntil: 'load', timeout: 60000 });
 const wallMs = Date.now() - t0;
-// The INITIAL HTML response body — what the browser must parse before first
+// The INITIAL HTML response body - what the browser must parse before first
 // paint. Render-blocking analysis must run on this, NOT the post-load DOM
 // (page.content()), because deferred/injected <link>s appear there after paint.
 const initialHtml = await resp.text().catch(() => '');
@@ -101,7 +101,7 @@ if (doPrefetch) {
   const fired = reqs.slice(before).filter(r => /xhr|fetch|document/.test(r.type));
   // prefer a content prefetch over a tracking/guid beacon for the example
   const example = (fired.find(r => /srch|search|product|catalog|data|api/i.test(r.url)) || fired[0] || {}).url || '';
-  hoverResult = fired.length ? `YES — ${fired.length} request(s) fired on hover (e.g. ${decodeURIComponent(example).slice(0, 80)})` : 'no — nothing prefetched on hover';
+  hoverResult = fired.length ? `YES - ${fired.length} request(s) fired on hover (e.g. ${decodeURIComponent(example).slice(0, 80)})` : 'no - nothing prefetched on hover';
 }
 
 await browser.close();

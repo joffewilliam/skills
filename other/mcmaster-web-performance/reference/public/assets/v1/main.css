@@ -1,4 +1,4 @@
-/* NON-CRITICAL CSS — preloaded, applied via media=print/onload swap so it never
+/* NON-CRITICAL CSS - preloaded, applied via media=print/onload swap so it never
    blocks first paint. Hover/motion polish only; the layout lives in theme.css. */
 .card, .tile { transition: border-color .14s, box-shadow .14s, transform .14s; }
 .card { animation: rise .16s ease both; }
